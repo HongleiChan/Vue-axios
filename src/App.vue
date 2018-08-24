@@ -5,6 +5,7 @@
   <button @click="mergeAjax">合并请求</button><br/>
   <div>响应1：{{response1}}</div> <br/>
   <div>响应2：{{response2}}</div> <br/>
+  <div>代码仓库 成功创建</div>
 </div>
 </template>
 
