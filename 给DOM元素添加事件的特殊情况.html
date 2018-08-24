@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+  //1.在组件的dom部分，任意的标签中 写上ref=“xxx"
+  //2.通过组件对象this.$ref.xxx  获取到元素
+
+  var App={
+    template: '<div>' +
+      '<input type="text" v-if="isShow" ref="input"/>'+
+      '<button ref="btn">我是按钮</button></div>',
+
+    data:function(){
+      return {isShow:false}
+    },
+    mounted:function () {
+      //此处才能获取this.$refs.btn
+      //装载数据
+      console.log(this.$refs.btn);
+      //显示元素并给与获取焦点
+      this.isShow = true; //会触发input元素的插入
+      //最终代码执行完毕以后，vue才会根据实际的值，进行dom操作
+      //给input元素获取焦点
+      //this.$refs.input.focus();
+      //我们希望在vue真正渲染dom到页面以后，才做的事
+      this.$nextTick((function () {
+        this.$refs.input.focus();
+      }))
+    }
+  };
+
+  /*$属性：$refs 获取组件内的元素，
+  /$parent：获取当前组件对象的父组件
+  $children： 获取子组件
+  $root：获取 new vue的实例
+  $el：组件对象的dom元素
+  * */
+  new Vue({
+    el:'#app',
+    components:{ app:App },
+    template:'<app/>'
+  })
+</script>
+</body>
+</html>

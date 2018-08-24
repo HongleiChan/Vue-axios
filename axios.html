@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+  <script src="./node_modules/axios"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+Vue.prototype.$axios = axios;
+  var App = {
+    template:'' +
+      '<div>' +
+      '<button @click="sendAjax">发请求</button> ' +
+      '</div>',
+    methods:{
+      sendAjax:function () {
+          //让组件具备axios对象的引用
+        url='https://free-api.heweather.com/s6/weather/forecast?key=85f86b78acb14eb6a07a803c28f1bc9b&location=CN101010100';
+        this.$axios.get(url).then(function (response) {
+          console.log(response)
+        })
+        }
+    }
+  };
+//组件内的每一个this对象，都是vue的孩子
+//vue祖宗的原型数据，就会共享给所有的而孩子
+
+  new Vue({
+    el:'#app',
+    components:{
+      app:App
+    },
+    template:'<app/>'
+  })
+</script>
+</body>
+</html>
